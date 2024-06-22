@@ -108,6 +108,7 @@ Para esta Hackathon, utilizaremos una API RESTful que proporciona información s
 - Disponible para usuarios autenticados con cualquier rol.
 - Recibe un parametro de ruta `id` que representa el itemId del item a obtener.
 - Devuelve un objeto con la información del item.
+- El campo denominado `ansi` es el id del item.
 
 
 #### Obtener Items con paginación (`GET /items?limit={limit}&lastKey={lastKey}`) 🔓
