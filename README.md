@@ -96,6 +96,7 @@ Cada endpoint incluye la descripción y el detalle de los parámetros de entrada
 | `stars`             | Integer    | Puntuación del producto (0 a 5)              |
 | `title`             | String     | Nombre del producto                          |
 
+
 **Respuesta exitosa (201):** `{ "itemId": "<id del producto>", "message": "Item created successfully" }`
 
 **Respuestas de error:**
@@ -170,6 +171,7 @@ Cada endpoint incluye la descripción y el detalle de los parámetros de entrada
 | `limit`            | Integer    | Sí        | Cantidad de items a obtener                 |
 | `lastKey`          | String     | No        | Clave para obtener los siguientes items     |
 
+
 **Respuesta exitosa (200):** `{ "items": [<array de items>], "lastKey": "<última clave>" }`
 
 **Respuestas de error:**
@@ -216,3 +218,4 @@ Cada endpoint incluye la descripción y el detalle de los parámetros de entrada
 5. **Finalización de la Compra**: Asegúrate de que el flujo de compra esté completamente funcional.
 
 ¡Diviértanse y aprovechen para experimentar!
+
