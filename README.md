@@ -1,151 +1,218 @@
-# Hackathon 2: Ecommerce de Tecnología 🛒💻
+# Hackathon 2: Mobile E-commerce de Tecnología 📱🛒💻
 
-¡Bienvenidos a la Hackathon 2 del curso Desarrollo Basado en Plataformas! En esta ocasión, construiremos una aplicación web que simula un ecommerce de productos tecnológicos, inspirado en Amazon. 📦🛍️
+¡Bienvenidos a la Hackathon 2 del curso Desarrollo Basado en Plataformas! En esta ocasión, construirán una **aplicación mobile** para un ecommerce de productos tecnológicos inspirada en Amazon. 📦🛍️
+
+> **Restricciones Importantes:** Este proyecto es exclusivamente para una plataforma mobile. Deberán usar **React Native** con **TypeScript**, **Tailwind CSS**, y **Expo Go** para desarrollar la interfaz. 
+
+La API está preconfigurada y lista para ser usada como una "caja negra" para que enfoquen sus esfuerzos en la experiencia mobile. Recuerden que **la implementación web ya no es necesaria ni permitida.** ¡Buena suerte y disfruten de esta experiencia! 🎉
 
 ## Objetivos 🎯
 
-1. 🔐 Implementar un sistema de autenticación con enrutamiento en React.
-2. 🚚 Practicar el paso de props de un componente padre a hijo.
-3. ♾️ Desarrollar un componente de scroll infinito.
-4. 🛒 Crear un carrito de compras con operaciones CRUD.
-5. 🔄 Implementar operaciones CRUD para cada producto.
-6. 🚀 Desplegar el front-end en Google Firebase utilizando Github Actions.
+1. **Autenticación de Usuario** 🔐  
+   Diseñar y conectar una pantalla de autenticación para el usuario en la aplicación mobile, integrándola con la API.
+   - **Criterio de éxito:** La app debe permitir registrar e iniciar sesión, con persistencia de sesión en la aplicación. Los usuarios autenticados deben acceder a las operaciones permitidas para cada rol (explicadas mas adelante en este documento).
 
-## Funcionalidades 🔧
+2. **Interfaz de Productos** 📲  
+   Implementar una pantalla que muestre la lista de productos con paginación, para una experiencia de navegación continua.
+   - **Criterio de éxito:** La app debe cargar los productos de la API usando paginación, con una experiencia de navegación fluida.
+
+3. **Gestión de Carrito de Compras** 🛒  
+   Crear un carrito de compras que permita agregar, editar y eliminar productos, y que esté sincronizado con la API.
+   - **Criterio de éxito:** El usuario debe poder ver su carrito, modificar cantidades de productos y realizar la compra desde la app.
+
+4. **Consumo de Detalles de Productos** 🔍  
+   Crear una vista de detalles de producto con información adicional (imagen, precio, estrellas, etc.).
+   - **Criterio de éxito:** Al seleccionar un producto, el usuario debería poder ver la información completa del producto y una opción para agregarlo al carrito.
+
+## Funcionalidades de Usuario 👥
 
 ### Roles de Usuario 👥
 
-Habrá dos roles de usuario: Administrador (`admin`)y Cliente(`client`).
+Existen dos roles principales: **Administrador** (`admin`) y **Cliente** (`client`).
 
 #### Administrador 👨‍💼
 
-- Podrá realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los productos.
-- No tendrá acceso al carrito de compras.
-- Tendrá una vista separada con una tabla que muestra todos los productos y las opciones CRUD.
+
+- **Acciones permitidas**: realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los productos.
+- **Restricciones**: no tiene acceso al carrito de compras y solo puede eliminar y actualizar productos que haya creado.
+- **Vista**: debe incluir una tabla o lista que permita administrar los productos (no existe endpoint con filtro, por lo que se debera hacer la validacion de si es el dueño en cada componente).
 
 #### Cliente 👤
+- **Acciones permitidas**: ver productos, añadir productos al carrito y realizar la compra.
+- **Restricciones**: no puede modificar los productos en el inventario.
+- **Vista**: tiene acceso de lectura a todos los producots y acceso completo a su carrito de compras y la posibilidad de gestionar productos en el mismo.
 
-- Podrá ver y agregar productos al carrito de compras.
-- No podrá realizar operaciones CRUD sobre los productos.
-- Tendrá acceso al carrito de compras en la parte superior derecha de la pantalla.
+## Documentación de la API 📚
 
-### Productos 📦
+> Aquí encontrarás la documentación completa de cada endpoint de la API. [https://nn1h052dp5.execute-api.us-east-2.amazonaws.com/v1](https://nn1h052dp5.execute-api.us-east-2.amazonaws.com/v1/)
 
-- Los productos se mostrarán en un componente de scroll infinito con paginación.
-- Cada producto mostrará su imagen, nombre, precio, puntuación de reseña y un botón para añadir al carrito.
-- Al hacer clic en un producto, se abrirá una página con detalles adicionales y la opción de añadir al carrito.
+### Endpoints
 
-### Carrito de Compras 🛒
+Cada endpoint incluye la descripción y el detalle de los parámetros de entrada y salida. Recuerden que algunos endpoints requieren autenticación (🔐), y es necesario incluir el token en la cabecera de la solicitud.
 
-- El carrito de compras se mostrará como un icono en la parte superior derecha de la pantalla.
-- Al hacer clic, se abrirá un modal que mostrará los productos añadidos al carrito.
-- En este modal, el usuario podrá eliminar productos del carrito y realizar la compra.
-- Después de realizar la compra, se mostrará un spinner de carga durante 5 segundos y luego un modal de confirmación.
+### Crear un nuevo usuario (`POST /auth/register`) 🔓
 
-### Autenticación 🔐
+**Descripción:** Crea un nuevo usuario en el sistema con un rol específico.
+  
+| Campo            | Tipo     | Descripción                               |
+|------------------|----------|-------------------------------------------|
+| `username`       | String   | Nombre de usuario único                   |
+| `password`       | String   | Contraseña del usuario                    |
+| `role`           | String   | Rol del usuario (`admin` o `client`)      |
 
-- Los usuarios no autenticados tendrán una vista similar a la de los clientes, pero sin acceso al carrito de compras.
-- Se mostrará un botón de inicio de sesión y registro.
-- Después de iniciar sesión o registrarse, se mostrará un modal de bienvenida y se habilitará el acceso al carrito de compras.
+**Respuesta exitosa (201):** `{ "message": "Usuario creado exitosamente." }`
 
-### Despliegue 🚀
+**Respuestas de error:**
+- `409`: registro de un usuario existente.
+- `400`: campos faltantes o inválidos.
+- `500`: error interno del servidor. (Avisar a los TAs 😱)
 
-- El front-end deberá ser desplegado en Google Firebase utilizando Github Actions, como se ha enseñado en clase.
+### Autenticar un usuario (`POST /auth/login`) 🔓
 
-## Documentación API 📚
+**Descripción:** Autentica a un usuario con su nombre de usuario y contraseña.
 
-Pueden acceder a los endpoints de la API en el siguiente enlace: https://cepnq6rjbk.execute-api.us-east-1.amazonaws.com/
+| Campo            | Tipo     | Descripción                               |
+|------------------|----------|-------------------------------------------|
+| `username`       | String   | Nombre de usuario                         |
+| `password`       | String   | Contraseña del usuario                    |
 
-Para esta Hackathon, utilizaremos una API RESTful que proporciona información sobre los productos.
+**Respuesta exitosa (200):** `{ "token": "<token de autenticación>" }`
 
-🔓: Enpoints publicos
-🔐: Enpoints que necesitan autorización
+**Respuestas de error:**
+- `401`: credenciales inválidas.
+- `400`: campos faltantes o inválidos.
+- `500`: error interno del servidor. (Avisar a los TAs 😨)
 
-#### Crear un nuevo usuario (`POST auth/register`) 🔓
+### Crear un item (`POST /item`) 🔐
 
-- `request body`: 
-  - `username`: Nombre de usuario
-  - `password`: Contraseña
-  - `role`: Rol del usuario (Admin o Cliente)
+**Descripción:** Permite que un usuario administrador cree un nuevo producto.
 
-#### Autenticar un usuario (`POST auth/login`) 🔓
-- `request body`: 
-  - `username`: Nombre de usuario
-  - `password`: Contraseña
+| Campo               | Tipo       | Descripción                                  |
+|---------------------|------------|----------------------------------------------|
+| `boughtInLastMonth` | Integer    | Cantidad de compras en el último mes         |
+| `imgUrl`            | String     | URL de la imagen del producto                |
+| `isBestSeller`      | Boolean    | Indica si es un producto más vendido         |
+| `price`             | Double     | Precio del producto                          |
+| `stars`             | Integer    | Puntuación del producto (0 a 5)              |
+| `title`             | String     | Nombre del producto                          |
 
-#### Crear un item (`POST /items` ) 🔐
+**Respuesta exitosa (201):** `{ "itemId": "<id del producto>", "message": "Item created successfully" }`
 
-- Solo disponible para usuarios con rol `admin`.
-- `request body`: 
-  - boughtInLastMonth:Integer, cantidad de compras en el último mes
-  - imgUrl:String, url de la imagen
-  - isBestSeller:Boolean, si pertenece a los más vendidos
-  - price:Double, precio del producto
-  - stars:Integer, puntuación del producto de 0 a 5
-  - title:String, nombre del producto
-- Todos los campos son requeridos.
-- Devuelve un `itemId` y un mensaje de éxito.
+**Respuestas de error:**
 
-#### Editar un item (`PUT /items`) 🔐
-- Solo disponible para usuarios con rol `admin`.
-- `request body`: 
-  - `itemId`:String, id del item
-  - `boughtInLastMonth`:Integer, cantidad de compras en el último mes
-  - `imgUrl`:String, url de la imagen
-  - `isBestSeller`:Boolean, si pertenece a los más vendidos
-  - `price`:Double, precio del producto
-  - `stars`:Integer, puntuación del producto de 0 a 5
-  - `title`:String, nombre del producto
-- Todos los campos son requeridos, incluso si no se van a modificar.
+- `403`: no autorizado.
+- `400`: campos faltantes o inválidos.
+- `500`: error interno del servidor. (Avisar a los TAs 😰)
 
-#### Eliminar un item (`DELETE /item/{id}`) 🔐
+### Editar un item (`PUT /item`) 🔐
 
-- Solo disponible para usuarios con rol `admin`.
-- Recibe un parametro de ruta `id` que representa el itemId del item a eliminar.
-- Devuelve un mensaje de éxito.
+**Descripción:** Actualiza la información de un producto existente.
 
-#### Obtener un item (`GET /item/{id}`) 🔐
-- Disponible para usuarios autenticados con cualquier rol.
-- Recibe un parametro de ruta `id` que representa el itemId del item a obtener.
-- Devuelve un objeto con la información del item.
-- El campo denominado `ansi` es el id del item.
+| Campo               | Tipo       | Requerido | Descripción                                  |
+|---------------------|------------|-----------|----------------------------------------------|
+| `itemId`            | String     | Sí        | ID del producto a modificar                  |
+| `boughtInLastMonth` | Integer    | Sí        | Cantidad de compras en el último mes         |
+| `imgUrl`            | String     | Sí        | URL de la imagen                             |
+| `isBestSeller`      | Boolean    | Sí        | Si es un producto más vendido                |
+| `price`             | Double     | Sí        | Precio del producto                          |
+| `stars`             | Integer    | Sí        | Puntuación (0 a 5)                           |
+| `title`             | String     | Sí        | Nombre del producto                          |
+
+**Respuesta exitosa (200):** `{ "message": "Producto actualizado con éxito." }`
+
+**Respuestas de error:**
+
+- `400`: campos faltantes o json inválidos.
+- `403`: no autorizado, probablemente no es el dueño del producto.
+- `404`: producto no encontrado.
+- `500`: error interno del servidor. (Avisar a los TAs 🗿)
+
+### Eliminar un item (`DELETE /item/{id}`) 🔐
+
+**Descripción:** Elimina un producto del inventario.
+
+| Parámetro          | Tipo       | Descripción                                  |
+|--------------------|------------|----------------------------------------------|
+| `id`               | String     | ID del producto a eliminar                   |
+
+**Respuesta exitosa (200):** `{ "message": "Item updated successfully!" }`
+
+**Respuestas de error:**
+
+- `400`: campos faltantes o json inválidos.
+- `403`: no autorizado, probablemente no es el dueño del producto.
+- `404`: producto no encontrado.
+- `500`: error interno del servidor. (Avisar a los TAs 😱)
 
 
-#### Obtener Items con paginación (`GET /items?limit={limit}&lastKey={lastKey}`) 🔓
-Recibe los siguientes parametros de query:
-  - `limit`: Cantidad de items a obtener.
-  - `lastKey`: Clave de paginación para obtener los siguientes items. **Puede ser nulo**
-- Devuelve un arreglo de items y la última clave de paginación(`lastKey`).
+### Obtener un item (`GET /item/{id}`) 🔐
 
-#### Hacer la compra de un carrito (`POST /buy`) 🔐
+**Descripción:** Recupera la información de un producto específico.
 
-- Se necesita el rol `client` para poder ejecutar esta operación.
-- `request body`: 
-  - `userId`:String, id del usuario
-- Devuelve un mensaje de éxito. Y el carrito del cliente se vacía.
+| Parámetro          | Tipo       | Descripción                                  |
+|--------------------|------------|----------------------------------------------|
+| `id`               | String     | ID del producto a obtener                    |
 
-#### Agregar un item al carrito (`POST /cart`) 🔐
+**Respuesta exitosa (200):** `{"itemId": "<id>", "title": "<nombre>", "price": "<precio>", ...}`
 
-- Se necesita el rol `client` para poder ejecutar esta operación.
-- `request body`: 
-  - `itemId`:String, id del item
-  - `userId`:String, id del usuario
-- Devuelve un mensaje de éxito.
-- Si el item ya está en el carrito, se incrementa la cantidad.
+**Respuestas de error:**
 
-#### Eliminar un item del carrito (`DELETE /cart`) 🔐
+- `400`: falta el path parameter.
+- `404`: producto no encontrado.
+- `500`: error interno del servidor. (Avisar a los TAs 😱)
 
-- Se necesita el rol `client` para poder ejecutar esta operación.
-- `request body`: 
-  - `itemId`:String, id del item
-  - `userId`:String, id del usuario
-- Si la cantidad del item es mayor a 1, se decrementa la cantidad.
-- Si la cantidad del item es 1, se elimina del carrito.
+### Obtener Items con paginación (`GET /items?limit={limit}&lastKey={lastKey}`) 🔓
 
-#### Obtener el carrito de un usuario (`GET /cart/{userId}`) 🔐
+**Descripción:** Recupera una lista de productos con paginación.
 
-- Se necesita el rol `client` para poder ejecutar esta operación.
-- Recibe un parametro de ruta `userId` que representa el id del usuario.
-- Devuelve un arreglo de de objetos que contiene el `itemId` y la cantidad `qty`.
+| Parámetro          | Tipo       | Requerido | Descripción                                 |
+|--------------------|------------|-----------|---------------------------------------------|
+| `limit`            | Integer    | Sí        | Cantidad de items a obtener                 |
+| `lastKey`          | String     | No        | Clave para obtener los siguientes items     |
 
-¡Buena suerte y disfruten de esta emocionante Hackathon! 🎉💪
+**Respuesta exitosa (200):** `{ "items": [<array de items>], "lastKey": "<última clave>" }`
+
+**Respuestas de error:**
+
+- `400`: falta el query parameter o es inválido.
+- `500`: error interno del servidor. (Avisar a los TAs 😤)
+
+### Agregar un item al carrito (`PUT /cart`) 🔐
+
+| Campo              | Tipo     | Requerido | Descripción                             |
+|--------------------|----------|-----------|-----------------------------------------|
+| `itemId`           | String   | Sí        | ID del item                             |
+| `userId`           | String   | Sí        | ID del usuario                          |
+
+**Respuesta exitosa (200):** `{ "message": "Item successfully added to cart." }`
+
+**Respuestas de error:**
+
+- `400`: campos faltantes o json inválidos.
+- `500`: error interno del servidor. (Avisar a los TAs ⚠️)
+- `404`: producto no encontrado.
+
+
+### Obtener el carrito de un usuario (`GET /cart/{userId}`) 🔐
+
+| Parámetro          | Tipo     | Descripción                             |
+|--------------------|----------|-----------------------------------------|
+| `userId`           | String   | ID del usuario                          |
+
+**Respuesta exitosa (200):** `{"products": [{"itemId": "<id>", "qty": <cantidad>}]}`
+
+**Respuestas de error:**
+
+- `400`: falta el path parameter.
+- `404`: carrito no encontrado.
+- `500`: error interno del servidor. (Avisar a los TAs 🤡)
+
+## Guía de Implementación Sugerida 📋
+
+1. **Inicio de sesión y Registro**: Configura las pantallas de autenticación primero.
+2. **Interfaz de Productos con Scroll Infinito**: Trabaja en la navegación de productos.
+3. **Pantalla de Detalles del Producto**: Crea la vista de detalles y la integración con el carrito.
+4. **Funcionalidad de Carrito**: Implementa la gestión del carrito para agregar/eliminar productos.
+5. **Finalización de la Compra**: Asegúrate de que el flujo de compra esté completamente funcional.
+
+¡Diviértanse y aprovechen para experimentar!
