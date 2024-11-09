@@ -2,7 +2,7 @@
 
 ¡Bienvenidos a la Hackathon 2 del curso Desarrollo Basado en Plataformas! En esta ocasión, construirán una **aplicación web** para un ecommerce de productos tecnológicos inspirada en Amazon. 📦🛍️
 
-> **Restricciones Importantes:** Este proyecto es exclusivamente para una plataforma mobile. Deberán usar **React Native** con **TypeScript**, **Tailwind CSS**, y **Expo Go** para desarrollar la interfaz. 
+> **Restricciones Importantes:** Este proyecto es exclusivamente para una plataforma mobile. Deberán usar **React** con **TypeScript**, **Tailwind CSS**, y para desarrollar la interfaz. 
 
 La API está preconfigurada y lista para ser usada como una "caja negra" para que enfoquen sus esfuerzos en la experiencia mobile. ¡Buena suerte y disfruten de esta experiencia! 🎉
 
