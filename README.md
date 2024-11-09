@@ -1,26 +1,26 @@
-# Hackathon 2: Mobile E-commerce de Tecnología 📱🛒💻
+# Hackathon 2: Web E-commerce de Tecnología 📱🛒💻
 
-¡Bienvenidos a la Hackathon 2 del curso Desarrollo Basado en Plataformas! En esta ocasión, construirán una **aplicación mobile** para un ecommerce de productos tecnológicos inspirada en Amazon. 📦🛍️
+¡Bienvenidos a la Hackathon 2 del curso Desarrollo Basado en Plataformas! En esta ocasión, construirán una **aplicación web** para un ecommerce de productos tecnológicos inspirada en Amazon. 📦🛍️
 
 > **Restricciones Importantes:** Este proyecto es exclusivamente para una plataforma mobile. Deberán usar **React Native** con **TypeScript**, **Tailwind CSS**, y **Expo Go** para desarrollar la interfaz. 
 
-La API está preconfigurada y lista para ser usada como una "caja negra" para que enfoquen sus esfuerzos en la experiencia mobile. Recuerden que **la implementación web ya no es necesaria ni permitida.** ¡Buena suerte y disfruten de esta experiencia! 🎉
+La API está preconfigurada y lista para ser usada como una "caja negra" para que enfoquen sus esfuerzos en la experiencia mobile. ¡Buena suerte y disfruten de esta experiencia! 🎉
 
 ## Objetivos 🎯
 
 1. **Autenticación de Usuario** 🔐  
-   Diseñar y conectar una pantalla de autenticación para el usuario en la aplicación mobile, integrándola con la API.
+   Diseñar y conectar una pantalla de autenticación para el usuario en la aplicación web, integrándola con la API.
    - **Criterio de éxito:** La app debe permitir registrar e iniciar sesión, con persistencia de sesión en la aplicación. Los usuarios autenticados deben acceder a las operaciones permitidas para cada rol (explicadas mas adelante en este documento).
 
-2. **Interfaz de Productos** 📲  
+3. **Interfaz de Productos** 📲  
    Implementar una pantalla que muestre la lista de productos con paginación, para una experiencia de navegación continua.
    - **Criterio de éxito:** La app debe cargar los productos de la API usando paginación, con una experiencia de navegación fluida.
 
-3. **Gestión de Carrito de Compras** 🛒  
+4. **Gestión de Carrito de Compras** 🛒  
    Crear un carrito de compras que permita agregar, editar y eliminar productos, y que esté sincronizado con la API.
    - **Criterio de éxito:** El usuario debe poder ver su carrito, modificar cantidades de productos y realizar la compra desde la app.
 
-4. **Consumo de Detalles de Productos** 🔍  
+5. **Consumo de Detalles de Productos** 🔍  
    Crear una vista de detalles de producto con información adicional (imagen, precio, estrellas, etc.).
    - **Criterio de éxito:** Al seleccionar un producto, el usuario debería poder ver la información completa del producto y una opción para agregarlo al carrito.
 
